@@ -1,0 +1,181 @@
+INTRODUCTION
+
+Imperative 
+- modifying mutable variables
+- using assignments
+- control structs such as if-then-else, loops, break, continue, return
+- one tends to conceptualize data structures word-by-word
+
+Theory
+- one or more data types
+- operations on these types
+- laws that describe the relationships between values and operations
+Functional
+- programming without mutable variables, assignments, loops, and other imperative control structures
+- focusing on functions
+- functions can values that are produced, consumed and composed
+- functions in FP are first-class citizens
+- fns can be defined anywhere, include inside other fns
+- passed as params to fns and returned as results
+
+Logic
+Object-Oriented
+
+LEC 1.2
+
+def power(x: Double, y:Int): Double
+
+substitution model
+- reduce an expression to a value
+- can be applied to all expressions as long as they have no side effects
+
+what is a side effect?
+- in addition to returning a value, it modifies some some state or has an observable interaction with calling fns or the outside world
+- a side effect free fn is always idempotent, can be applied multiple times without changing the result beyond the initial application
+- (referential transparency) means that an expression such as a fn call can be replaced with its value
+
+call-by-value
+- evals function argument only once
+call-by-name
+- does not eval the fn argument if it's unused
+
+LEC 1.3
+
+if CBV terminates => CBN terminates
+if CBN terminates !=> CBV terminates
+
+CBN
+def first(x: Int, y: Int) = x
+
+first(1, loop)
+
+CBN
+first(1, loop) => 1
+
+CBV
+first(1, loop) => loop => loop
+
+Scala normally uses call by value
+- exponential more efficient than CBN since avoids recompilation
+
+LEC 1.4
+
+def abs(x: int) = if (x >= 0) x else -x
+
+short-circuit evaluation
+
+value definition
+val x = 2 (def form is 'by value')
+val y - square(x) (def form is 'by name')
+
+def loop: Boolean = loop
+
+by name
+def x = loop
+
+by value
+val x = loop (infinite loop)
+
+LEC 1.5
+
+def sqrt(x: Double): Double = 
+
+def sqrtIter(guess: Double, x: Double): Double = 
+     if(isGoodEnough(guess,x)) guess
+     else sqrtIter(improve(guess, x), x)
+
+LEC 2.1
+
+GCD
+- Euclid's algorithm
+
+Tail Recursion
+- if  a function calls itself as its last action, the function's stack frame can be resued
+- this is called tail recursion
+
+=> tail recursive functions are iterative processes
+
+- in general, if the last action of a function consists of calling a function (which may be the same),
+one stack frame would be sufficient for both function. such calls are called tail-calls
+- can use constant stack space
+
+object exercise {
+     def factorial(n: Int): Int = {
+          def loop(acc: Int, n: Int) =
+               if (n == 0) acc
+               else loop(acc * n, n - 1)
+          loop(1, n)
+     }
+     factorial(4)
+}
+
+LEC 2.2
+
+Higher-Order Functions
+- functional languages treat functions as first-class values
+- functions hat take other functions as params or that return fns as results are called higher order fns
+
+def sum(f: Int => Int)
+
+Function Literals
+Anonymous Functions
+- do not have a name
+- syntactic sugar
+
+(x: Int) => x * x * x
+def f(x: T1 ... xn: Tn) = E; f
+
+e.g. def sumInts() = sum(x => x, a, b)
+
+LEC 2.3
+
+Currying
+
+Functions Returning Functions
+def sum(f: Int => Int): (Int, Int) => Int = {
+     def sumF(a: Int, b: Int): Int =
+          if (a > b) 0
+          else f(a) + sumF(a + 1, b)
+     sumF
+}
+
+def sumInt = sum(x => x)
+
+sumInt(1, 2)
+
+sum(cub) (1, 10)
+
+Multiple Parameter Lists
+def sum(f: Int -> Int)(a: Int, b: Int): Int = 
+
+Currying means taking a function that takes multiple arguments and turning it into a chain of functions each taking one argument and returning the next function, until the last returns the result
+
+def product(f: Int => Int)(a: Int, b: Int): Int =
+     if (a > b) 1
+     else f(a) * product(f)(a+1, b)
+product(x => x * x)(3, 4)
+
+def fact(n: Int) = product(x => x)(1, n)
+fact(5)
+
+def mapReduce(f: Int => Int, combine: (Int, Int) => Int, zero: Int)(a: Int, b: Int): Int =
+     if(a > b) zerp
+     else combine(f(a), mapReduce(f, combine, zero)(a + 1, b))
+
+product = mapReduce(f, (x, y) => product x * y, 1)(a, b)
+
+LEC 2.4
+
+A number x is called a fixed point of a function if
+f(x) = x
+
+e.g.
+x => 1 + x/2
+
+x, f(x), f(f(x))
+
+var tolerance = 0.001
+def isCloseEnough(x: Double, y: Double) =
+
+expressive power of a language is greatly increased if we can pass function arguemnts
+
