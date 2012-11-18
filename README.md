@@ -1,1 +1,1 @@
-Assignment 1 & 2 solns and notes for Coursera's Functional Programming Principles in Scala.
+Lec 1 & 2 notes and assignment 1 & 2 solns for Coursera's Functional Programming Principles in Scala.
