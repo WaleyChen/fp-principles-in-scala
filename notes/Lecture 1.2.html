@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 3.3.0 (300201)"/><meta name="created" content="2012-11-11 22:47:06 +0000"/><meta name="updated" content="2012-11-11 23:05:42 +0000"/><title>Lecture 1.2</title></head><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+def power(x: Double, y:Int): Double
+<div><br/></div>
+<div>substitution model</div>
+<div>- reduce an expression to a value</div>
+<div>- can be applied to all expressions as long as they have no side effects</div>
+<div><br/></div>
+<div>what is a side effect?</div>
+<div>- in addition to returning a value, it modifies some some state or has an observable interaction with calling fns or the outside world</div>
+<div>- a side effect free fn is always idempotent, can be applied multiple times without changing the result beyond the initial application</div>
+<div>- (referential transparency) means that an expression such as a fn call can be replaced with its value</div>
+<div><br/></div>
+<div>call-by-value</div>
+<div>- evals function argument only once</div>
+<div>call-by-name</div>
+<div>- does not eval the fn argument if it's unused</div>
+</body></html>
